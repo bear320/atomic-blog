@@ -1,7 +1,18 @@
-import { usePosts } from "../hooks/usePosts";
+// import { usePosts } from "../hooks/usePosts";
+import { Post } from "../types";
 
-const Header = () => {
-  const { posts, searchQuery, setSearchQuery, onClearPosts } = usePosts();
+const Header = ({
+  posts,
+  searchQuery,
+  setSearchQuery,
+  onClearPosts,
+}: {
+  posts: Post[];
+  searchQuery: string;
+  setSearchQuery: (query: string) => void;
+  onClearPosts: () => void;
+}) => {
+  // const { posts, searchQuery, setSearchQuery, onClearPosts } = usePosts();
 
   return (
     <header>

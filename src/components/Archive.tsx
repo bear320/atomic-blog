@@ -1,18 +1,31 @@
-import { useState } from "react";
-import { usePosts } from "../hooks/usePosts";
+import { useState, memo } from "react";
+// import { usePosts } from "../hooks/usePosts";
+import { Post } from "../types";
+import { faker } from "@faker-js/faker";
 
-const Archive = () => {
-  const { onAddPost, onCreateRandomPost } = usePosts();
+const createRandomPost = (): Post => {
+  return {
+    title: `${faker.hacker.adjective()} ${faker.hacker.noun()}`,
+    body: faker.hacker.phrase(),
+  };
+};
+
+const Archive = ({
+  archiveOptions,
+}: {
+  archiveOptions: { show: boolean; title: string };
+}) => {
+  // const { onAddPost, onCreateRandomPost } = usePosts();
 
   const [posts] = useState(
-    Array.from({ length: 50 }, () => onCreateRandomPost())
+    Array.from({ length: 5000 }, () => createRandomPost())
   );
 
-  const [showArchive, setShowArchive] = useState(false);
+  const [showArchive, setShowArchive] = useState(archiveOptions.show);
 
   return (
     <aside>
-      <h2>Post archive</h2>
+      <h2>{archiveOptions.title}</h2>
       <button onClick={() => setShowArchive((s) => !s)}>
         {showArchive ? "Hide archive posts" : "Show archive posts"}
       </button>
@@ -24,7 +37,7 @@ const Archive = () => {
               <p>
                 <strong>{post.title}:</strong> {post.body}
               </p>
-              <button onClick={() => onAddPost(post)}>Add as new post</button>
+              <button onClick={() => {}}>Add as new post</button>
             </li>
           ))}
         </ul>
@@ -33,4 +46,6 @@ const Archive = () => {
   );
 };
 
-export default Archive;
+const MemoAchive = memo(Archive);
+
+export default MemoAchive;
