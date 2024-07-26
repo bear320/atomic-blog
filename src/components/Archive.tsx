@@ -1,33 +1,18 @@
 import { useState, memo } from "react";
-// import { usePosts } from "../hooks/usePosts";
-import { Post } from "../types";
-import { faker } from "@faker-js/faker";
+import { usePosts } from "../hooks/usePosts";
 
-const createRandomPost = (): Post => {
-  return {
-    title: `${faker.hacker.adjective()} ${faker.hacker.noun()}`,
-    body: faker.hacker.phrase(),
-  };
-};
-
-const Archive = ({
-  archiveOptions,
-  onAddPost,
-}: {
-  archiveOptions: { show: boolean; title: string };
-  onAddPost: (post: Post) => void;
-}) => {
-  // const { onAddPost, onCreateRandomPost } = usePosts();
+const Archive = () => {
+  const { onAddPost, onCreateRandomPost } = usePosts();
 
   const [posts] = useState(
-    Array.from({ length: 5000 }, () => createRandomPost())
+    Array.from({ length: 5000 }, () => onCreateRandomPost())
   );
 
-  const [showArchive, setShowArchive] = useState(archiveOptions.show);
+  const [showArchive, setShowArchive] = useState(false);
 
   return (
     <aside>
-      <h2>{archiveOptions.title}</h2>
+      <h2>Archived Posts</h2>
       <button onClick={() => setShowArchive((s) => !s)}>
         {showArchive ? "Hide archive posts" : "Show archive posts"}
       </button>

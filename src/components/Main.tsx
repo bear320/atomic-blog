@@ -1,16 +1,8 @@
 import { useState } from "react";
-// import { usePosts } from "../hooks/usePosts";
-import { Post } from "../types";
-// import Test from "./Test";
+import { usePosts } from "../hooks/usePosts";
 
-const Main = ({
-  posts,
-  onAddPost,
-}: {
-  posts: Post[];
-  onAddPost: (post: Post) => void;
-}) => {
-  // const { posts, onAddPost } = usePosts();
+const Main = () => {
+  const { posts, onAddPost } = usePosts();
 
   const [title, setTitle] = useState("");
   const [body, setBody] = useState("");
@@ -50,8 +42,6 @@ const Main = ({
             </li>
           ))}
         </ul>
-
-        {/* <Test /> */}
       </section>
     </main>
   );
