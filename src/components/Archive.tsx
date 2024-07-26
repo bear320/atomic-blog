@@ -12,8 +12,10 @@ const createRandomPost = (): Post => {
 
 const Archive = ({
   archiveOptions,
+  onAddPost,
 }: {
   archiveOptions: { show: boolean; title: string };
+  onAddPost: (post: Post) => void;
 }) => {
   // const { onAddPost, onCreateRandomPost } = usePosts();
 
@@ -37,7 +39,7 @@ const Archive = ({
               <p>
                 <strong>{post.title}:</strong> {post.body}
               </p>
-              <button onClick={() => {}}>Add as new post</button>
+              <button onClick={() => onAddPost(post)}>Add as new post</button>
             </li>
           ))}
         </ul>

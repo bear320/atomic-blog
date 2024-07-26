@@ -1,4 +1,4 @@
-import { useState, useEffect, useMemo } from "react";
+import { useState, useEffect, useMemo, useCallback } from "react";
 // import { PostProvider } from "./context/PostContext";
 import { Post } from "./types";
 import Header from "./components/Header";
@@ -28,9 +28,10 @@ function App() {
         )
       : posts;
 
-  const handleAddPost = (post: Post) => {
+  const handleAddPost = useCallback((post: Post) => {
     setPosts((posts) => [...posts, post]);
-  };
+  }, []);
+
   const handleClearPosts = () => {
     setPosts([]);
   };
@@ -63,7 +64,7 @@ function App() {
         onClearPosts={handleClearPosts}
       />
       <Main posts={searchPosts} onAddPost={handleAddPost} />
-      <Archive archiveOptions={archiveOptions} />
+      <Archive archiveOptions={archiveOptions} onAddPost={handleAddPost} />
       <Footer />
       {/* </PostProvider> */}
     </section>
